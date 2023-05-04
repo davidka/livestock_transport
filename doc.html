@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        font-family: courier, courier new, monospace;
+        font-size: 12px;
+        margin-left: 42px;
+        width: 465px;
+        white-space: pre-line;
+      }
+
+      table {
+        font-size: 10px;
+        margin-left: -22px;
+        width: 450px;
+      }
+      div.header {
+        padding: 0;
+        margin: 0 0 0 -22px;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+ATLAS Service Template Specification
+Name                                         livestock_transport
+Version                                                      1.0
+Author(s)                    David Hahn, Alexander Hammerschmidt
+        </div>
+
+    <h3>The "livestock_transport" ATLAS Service Template</h3>
+    <div style="margin-left: -22px">
+      <h2>Abstract</h2>
+      This document describes the specifications for a general livestock transport service whose purpose Enable real-time data exchange among parties in Livestock supply chain to address coordination and loading/unloading issues.
+    
+    </div>
+
+    <h2>Livestock track and trace - Use Case</h2>
+
+    <h3>Context</h3>
+    In the Livestock track and trace supply chain problems with the coordination or loading/unloading of livestock often occur due to delays such as traffic jams on the road. With the use case described below, we want to address this problem by enabling the parties involved in the supply chain, such as farmers, transport companies or livestock traders, and slaughterhouse operators, to exchange information and data near real-time with the help of the ATLAS network.
+
+
+    The main use case is tracking the exact location of the livestock handler for the involved parties to make appropriate preparations for his arrival in time. 
+    
+
+    <h4>These preparations can be, among others:</h4>
+    <ul>
+        <li>Relocating live livestock to areas prepared for loading in a timely manner.</li>
+        <li>Coordinating arrival at the livestock gate.</li>
+        <li>Freeing up the waiting stall for unloading.</li>
+    </ul>
+
+    In addition to the main use case described above, this approach would also enable communication between the livestock trader and the farmer or slaughterhouse. For example, the livestock trader could send a message to the farmer, either actively through a manual action or automatically through location determination, as soon as the livestock has arrived at its destination.
+
+
+    <h4>By implementing the use case, we see the following benefits:</h4>
+    <ul>
+        <li>More transparency in the supply chain for the farmer, transport company, and slaughterhouse operator</li>
+        <li>Automatic and sustainable documentation of the delivery of the livestock</li>
+        <li>Automatic and sustainable monitoring of transport routes and times</li>
+        <li>Automatic and sustainable monitoring of the legally required transport times for live livestock</li>
+        <li>Flexible reactions to transport delays due to traffic jams, transport accidents, and problems with the car such as malfunction, breakdown, etc.</li>
+    </ul>
+
+    <h3>Livestock track and trace - Service Template</h3>
+
+    <table>
+        <tr>
+            <td><b>Term</b></td>
+            <td><b>Definition</b></td>
+        </tr>
+
+        <tr>
+            <td>Identifier</td>
+            <td>livestock_delivery_tracke_trace</td>
+        </tr>
+        <tr>
+            <td>Creator</td>
+            <td>dev.house GmbH</td>
+        </tr>
+        <tr>
+            <td>Version</td>
+            <td>1.0</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>see context information</td>
+        </tr>
+        <tr>
+            <td>Preconditions for the implementor</td>
+            <td>
+                1. Knowledge about REST and HTTPS
+                2. Technical protocols HTTPS and REST are supported on both sides (the data platforms and farming software provider)
+            </td>
+        </tr>
+        <tr>
+            <td>Sequences and flows</td>
+            <td>Example Service Deployment View: This view deals as an example for a possible deployment of the service and the consumer implementation. It makes clear that a participant is not limited to only be provide OR consumer but of course can be both.<img src="./doc/sequences_and_flows.png" style="width: 420px" /></td>
+        </tr>
+        <tr>
+            <td>Exceptions and error codes</td>
+            <td>The error handling is strictly REST. There are no special error codes needed.</td>
+        </tr>
+    </table>
+
+    <h3>Data model</h3>
+    The detailed data models, with examples can be found in the adjoining OpenAPI specifications.
+
+    <h3>Out of scope</h3>
+    ATLAS Service Registration Portal is provided by the ATLAS consortium.
+
+  </body>
+</html>

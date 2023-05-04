@@ -1,0 +1,2596 @@
+openapi: 3.0.1
+info:
+  title: ATLAS Service Template - Livestock transport
+  description: Enable real-time data exchange among parties in Livestock supply chain to address coordination and loading/unloading issues.
+  contact:
+    name: dev.house GmbH
+    url: https://dev.house
+    email: info@dev.house
+  version: 1.0.0
+servers:
+  - url: https://traceway-api-develop.azurewebsites.net/api
+paths:
+  /all:
+    post:
+      tags:
+        - All
+      operationId: All
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/allDeliveryRequest'
+      responses:
+        '200':
+          description: Id of created delivery
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: If some errors occur
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  /test:
+    get:
+      tags:
+        - Test
+      operationId: Run
+      responses:
+        '200':
+          description: The OK response message containing a JSON result.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  /vendors:
+    get:
+      tags:
+        - Vendors
+      operationId: GetVendors
+      responses:
+        '200':
+          description: If success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/iGetVendors_Vendors'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  /trucks:
+    post:
+      tags:
+        - Trucks
+      operationId: CreateTruck
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addOrUpdateTruckRequest'
+      responses:
+        '200':
+          description: Id of created truck
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/iInsertTruck_Insert_trucks_one'
+        '400':
+          description: If some errors occur
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+    get:
+      tags:
+        - Trucks
+      operationId: GetTrucks
+      responses:
+        '200':
+          description: If success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/iReadOnlyList_iGetTrucks_Trucks'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  '/trucks/{id}':
+    delete:
+      tags:
+        - Trucks
+      operationId: DeleteTruck
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: If success
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+    get:
+      tags:
+        - Trucks
+      operationId: GetTruck
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: If success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/iGetTruck_Trucks_by_pk'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+    put:
+      tags:
+        - Trucks
+      operationId: UpdateTruck
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addOrUpdateTruckRequest'
+      responses:
+        '200':
+          description: If success
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/iUpdateTruck_Update_trucks_by_pk'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  /rides:
+    post:
+      tags:
+        - Rides
+      operationId: CreateRide
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addOrUpdateRideRequest'
+      responses:
+        '200':
+          description: Id of created ride
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/iInsertRide_Insert_rides_one'
+        '400':
+          description: If some errors occur
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+    get:
+      tags:
+        - Rides
+      operationId: GetRides
+      responses:
+        '200':
+          description: If success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/iGetRides_Rides'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  '/rides/{id}':
+    delete:
+      tags:
+        - Rides
+      operationId: DeleteRide
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: If success
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+    get:
+      tags:
+        - Rides
+      operationId: GetRide
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: If success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/iGetRide_Rides_by_pk'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+    put:
+      tags:
+        - Rides
+      operationId: UpdateRide
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addOrUpdateRideRequest'
+      responses:
+        '200':
+          description: If success
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/iUpdateRide_Update_rides_by_pk'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  /product-types:
+    get:
+      tags:
+        - ProductTypes
+      operationId: GetProductTypes
+      responses:
+        '200':
+          description: If success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/iGetProductTypes_ProductTypes'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  /products:
+    post:
+      tags:
+        - Products
+      operationId: CreateProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addOrUpdateProductRequest'
+      responses:
+        '200':
+          description: Id of created product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/iInsertProduct_Insert_products_one'
+        '400':
+          description: If some errors occur
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+    get:
+      tags:
+        - Products
+      operationId: GetProducts
+      responses:
+        '200':
+          description: If success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/iGetProducts_Products'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  '/products/{id}':
+    delete:
+      tags:
+        - Products
+      operationId: DeleteProduct
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: If success
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+    get:
+      tags:
+        - Products
+      operationId: GetProduct
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: If success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/iGetProduct_Products_by_pk'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+    put:
+      tags:
+        - Products
+      operationId: UpdateProduct
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addOrUpdateProductRequest'
+      responses:
+        '200':
+          description: If success
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/iUpdateProduct_Update_products_by_pk'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  /guest-accesses:
+    post:
+      tags:
+        - GuestAccesses
+      operationId: CreateGuestAccess
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addOrUpdateGuestAccessRequest'
+      responses:
+        '200':
+          description: Id of created guest access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/iInsertGuestAccess_Insert_deliveryGuestAccesses_one'
+        '400':
+          description: If some errors occur
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+    get:
+      tags:
+        - GuestAccesses
+      operationId: GetGuestAccesses
+      responses:
+        '200':
+          description: If success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/iGetGuestAccesses_DeliveryGuestAccesses'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  '/guest-accesses/{id}':
+    delete:
+      tags:
+        - GuestAccesses
+      operationId: DeleteGuestAccess
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: If success
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  /deliveries:
+    post:
+      tags:
+        - Deliveries
+      operationId: CreateDelivery
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addOrUpdateDeliveryRequest'
+      responses:
+        '200':
+          description: Id of created delivery
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/iInsertDelivery_Insert_deliveries_one'
+        '400':
+          description: If some errors occur
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+    get:
+      tags:
+        - Deliveries
+      operationId: GetDeliveries
+      responses:
+        '200':
+          description: If success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/iGetDeliveries_Deliveries'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  '/deliveries/{id}':
+    delete:
+      tags:
+        - Deliveries
+      operationId: DeleteDelivery
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: If success
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+    get:
+      tags:
+        - Deliveries
+      operationId: GetDelivery
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: If success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/iGetDelivery_Deliveries_by_pk'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+    put:
+      tags:
+        - Deliveries
+      operationId: UpdateDelivery
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addOrUpdateDeliveryRequest'
+      responses:
+        '200':
+          description: If success
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/iUpdateDelivery_Update_deliveries_by_pk'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  /consignees:
+    get:
+      tags:
+        - Consignees
+      operationId: GetConsignees
+      responses:
+        '200':
+          description: If success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/iGetConsignees_Consignees'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+  /carriers:
+    get:
+      tags:
+        - Carriers
+      operationId: GetCarriers
+      responses:
+        '200':
+          description: If success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/iGetCarriers_Carriers'
+        '400':
+          description: If some errors occur
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+      security:
+        - keycloak_auth:
+            - openid
+components:
+  schemas:
+    additionalValues:
+      type: object
+      properties:
+        values:
+          type: object
+          additionalProperties:
+            type: string
+    addOrUpdateDeliveryRequest:
+      required:
+        - externalId
+        - time
+        - progress
+        - status
+        - truckId
+      type: object
+      properties:
+        externalId:
+          minLength: 1
+          type: string
+        time:
+          minLength: 1
+          type: string
+          format: date-time
+        progress:
+          minLength: 1
+          type: string
+        status:
+          minLength: 1
+          type: string
+        truckId:
+          minLength: 1
+          type: string
+    addOrUpdateGuestAccessRequest:
+      required:
+        - deliveryId
+        - guestId
+      type: object
+      properties:
+        deliveryId:
+          minLength: 1
+          type: string
+        guestId:
+          minLength: 1
+          type: string
+    addOrUpdateProductRequest:
+      required:
+        - productTypeId
+        - rideId
+      type: object
+      properties:
+        expectedAmount:
+          type: integer
+          format: int32
+        deliveredAmount:
+          type: integer
+          format: int32
+        loadedAmount:
+          type: integer
+          format: int32
+        productTypeId:
+          minLength: 1
+          type: string
+        rideId:
+          minLength: 1
+          type: string
+    addOrUpdateRideRequest:
+      required:
+        - time
+        - consigneeId
+        - deliveryId
+        - status
+      type: object
+      properties:
+        time:
+          minLength: 1
+          type: string
+          format: date-time
+        consigneeId:
+          minLength: 1
+          type: string
+        deliveryId:
+          minLength: 1
+          type: string
+        status:
+          minLength: 1
+          type: string
+        vendorId:
+          type: string
+    addOrUpdateTruckRequest:
+      required:
+        - carrierId
+        - driversName
+        - externalId
+      type: object
+      properties:
+        carrierId:
+          minLength: 1
+          type: string
+        coordinate:
+          type: string
+        driversName:
+          minLength: 1
+          type: string
+        externalId:
+          minLength: 1
+          type: string
+        trailerNumber:
+          type: string
+        truckLicense:
+          type: string
+    allDeliveryRequest:
+      required:
+        - externalId
+        - time
+        - progress
+        - status
+      type: object
+      properties:
+        externalId:
+          minLength: 1
+          type: string
+        time:
+          minLength: 1
+          type: string
+          format: date-time
+        progress:
+          minLength: 1
+          type: string
+        status:
+          minLength: 1
+          type: string
+        truck:
+          $ref: '#/components/schemas/allTruckRequest'
+        rides:
+          type: array
+          items:
+            $ref: '#/components/schemas/allRidesRequest'
+    allProductRequest:
+      required:
+        - productTypeId
+      type: object
+      properties:
+        expectedAmount:
+          type: integer
+          format: int32
+        deliveredAmount:
+          type: integer
+          format: int32
+        loadedAmount:
+          type: integer
+          format: int32
+        productTypeId:
+          minLength: 1
+          type: string
+    allRidesRequest:
+      required:
+        - time
+        - consigneeId
+        - status
+        - vendorId
+      type: object
+      properties:
+        time:
+          minLength: 1
+          type: string
+          format: date-time
+        consigneeId:
+          minLength: 1
+          type: string
+        status:
+          minLength: 1
+          type: string
+        vendorId:
+          minLength: 1
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/allProductRequest'
+    allTruckRequest:
+      required:
+        - carrierId
+        - driversName
+        - externalId
+        - trailerNumber
+        - truckLicense
+      type: object
+      properties:
+        carrierId:
+          minLength: 1
+          type: string
+        coordinate:
+          type: string
+        driversName:
+          minLength: 1
+          type: string
+        externalId:
+          minLength: 1
+          type: string
+        trailerNumber:
+          minLength: 1
+          type: string
+        truckLicense:
+          minLength: 1
+          type: string
+    iGetCarriers_Carriers:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetConsignees_Consignees:
+      type: object
+      properties:
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        fullName:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetDeliveries_Deliveries:
+      type: object
+      properties:
+        rides:
+          type: array
+          items:
+            $ref: '#/components/schemas/iGetDeliveries_Deliveries_Rides'
+        status:
+          enum:
+            - 0
+            - 1
+            - 2
+          type: integer
+          format: int32
+          default: 0
+        timeLocal:
+          type: string
+        truck:
+          $ref: '#/components/schemas/iGetDeliveries_Deliveries_Truck'
+        truckId:
+          type: string
+        updatedAt:
+          type: string
+        clientId:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        progress:
+          enum:
+            - 0
+            - 1
+            - 2
+          type: integer
+          format: int32
+          default: 0
+    iGetDeliveries_Deliveries_Rides:
+      type: object
+      properties:
+        consignee:
+          $ref: '#/components/schemas/iGetDeliveries_Deliveries_Rides_Consignee'
+        consigneeId:
+          type: string
+        createdAt:
+          type: string
+        deliveryId:
+          type: string
+        id:
+          type: string
+        status:
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+          type: integer
+          format: int32
+          default: 0
+        timeLocal:
+          type: string
+        updatedAt:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/iGetDeliveries_Deliveries_Rides_Products'
+        vendor:
+          $ref: '#/components/schemas/iGetDeliveries_Deliveries_Rides_Vendor'
+        vendorId:
+          type: string
+    iGetDeliveries_Deliveries_Rides_Consignee:
+      type: object
+      properties:
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        fullName:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetDeliveries_Deliveries_Rides_Products:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveredAmount:
+          type: integer
+          format: int32
+          nullable: true
+        expectedAmount:
+          type: integer
+          format: int32
+        id:
+          type: string
+        loadedAmount:
+          type: integer
+          format: int32
+          nullable: true
+        productType:
+          $ref: '#/components/schemas/iGetDeliveries_Deliveries_Rides_Products_ProductType'
+        productTypeId:
+          type: string
+        rideId:
+          type: string
+        updatedAt:
+          type: string
+    iGetDeliveries_Deliveries_Rides_Products_ProductType:
+      type: object
+      properties:
+        client_id:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+    iGetDeliveries_Deliveries_Rides_Vendor:
+      type: object
+      properties:
+        coordinate:
+          type: string
+        address:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetDeliveries_Deliveries_Truck:
+      type: object
+      properties:
+        carrierId:
+          type: string
+        createdAt:
+          type: string
+        driversName:
+          type: string
+        carrier:
+          $ref: '#/components/schemas/iGetDeliveries_Deliveries_Truck_Carrier'
+        externalId:
+          type: string
+        id:
+          type: string
+        trailerNumber:
+          type: string
+        truckLicense:
+          type: string
+        updatedAt:
+          type: string
+    iGetDeliveries_Deliveries_Truck_Carrier:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetDelivery_Deliveries_by_pk:
+      type: object
+      properties:
+        rides:
+          type: array
+          items:
+            $ref: '#/components/schemas/iGetDelivery_Deliveries_by_pk_Rides'
+        status:
+          enum:
+            - 0
+            - 1
+            - 2
+          type: integer
+          format: int32
+          default: 0
+        timeLocal:
+          type: string
+        truck:
+          $ref: '#/components/schemas/iGetDelivery_Deliveries_by_pk_Truck'
+        truckId:
+          type: string
+        updatedAt:
+          type: string
+        clientId:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        progress:
+          enum:
+            - 0
+            - 1
+            - 2
+          type: integer
+          format: int32
+          default: 0
+    iGetDelivery_Deliveries_by_pk_Rides:
+      type: object
+      properties:
+        consignee:
+          $ref: '#/components/schemas/iGetDelivery_Deliveries_by_pk_Rides_Consignee'
+        consigneeId:
+          type: string
+        createdAt:
+          type: string
+        deliveryId:
+          type: string
+        id:
+          type: string
+        status:
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+          type: integer
+          format: int32
+          default: 0
+        timeLocal:
+          type: string
+        updatedAt:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/iGetDelivery_Deliveries_by_pk_Rides_Products'
+        vendor:
+          $ref: '#/components/schemas/iGetDelivery_Deliveries_by_pk_Rides_Vendor'
+        vendorId:
+          type: string
+    iGetDelivery_Deliveries_by_pk_Rides_Consignee:
+      type: object
+      properties:
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        fullName:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetDelivery_Deliveries_by_pk_Rides_Products:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveredAmount:
+          type: integer
+          format: int32
+          nullable: true
+        expectedAmount:
+          type: integer
+          format: int32
+        id:
+          type: string
+        loadedAmount:
+          type: integer
+          format: int32
+          nullable: true
+        productType:
+          $ref: '#/components/schemas/iGetDelivery_Deliveries_by_pk_Rides_Products_ProductType'
+        productTypeId:
+          type: string
+        rideId:
+          type: string
+        updatedAt:
+          type: string
+    iGetDelivery_Deliveries_by_pk_Rides_Products_ProductType:
+      type: object
+      properties:
+        client_id:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+    iGetDelivery_Deliveries_by_pk_Rides_Vendor:
+      type: object
+      properties:
+        coordinate:
+          type: string
+        address:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetDelivery_Deliveries_by_pk_Truck:
+      type: object
+      properties:
+        carrierId:
+          type: string
+        createdAt:
+          type: string
+        driversName:
+          type: string
+        carrier:
+          $ref: '#/components/schemas/iGetDelivery_Deliveries_by_pk_Truck_Carrier'
+        externalId:
+          type: string
+        id:
+          type: string
+        trailerNumber:
+          type: string
+        truckLicense:
+          type: string
+        updatedAt:
+          type: string
+    iGetDelivery_Deliveries_by_pk_Truck_Carrier:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetGuestAccesses_DeliveryGuestAccesses:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveryId:
+          type: string
+        guestId:
+          type: string
+        id:
+          type: string
+        updatedAt:
+          type: string
+    iGetProduct_Products_by_pk:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveredAmount:
+          type: integer
+          format: int32
+          nullable: true
+        expectedAmount:
+          type: integer
+          format: int32
+        id:
+          type: string
+        loadedAmount:
+          type: integer
+          format: int32
+          nullable: true
+        productTypeId:
+          type: string
+        rideId:
+          type: string
+        updatedAt:
+          type: string
+        productType:
+          $ref: '#/components/schemas/iGetProduct_Products_by_pk_ProductType'
+    iGetProduct_Products_by_pk_ProductType:
+      type: object
+      properties:
+        client_id:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+    iGetProducts_Products:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveredAmount:
+          type: integer
+          format: int32
+          nullable: true
+        expectedAmount:
+          type: integer
+          format: int32
+        id:
+          type: string
+        loadedAmount:
+          type: integer
+          format: int32
+          nullable: true
+        productTypeId:
+          type: string
+        rideId:
+          type: string
+        updatedAt:
+          type: string
+        productType:
+          $ref: '#/components/schemas/iGetProducts_Products_ProductType'
+    iGetProducts_Products_ProductType:
+      type: object
+      properties:
+        client_id:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+    iGetProductTypes_ProductTypes:
+      type: object
+      properties:
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetRide_Rides_by_pk:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/iGetRide_Rides_by_pk_Products'
+        status:
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+          type: integer
+          format: int32
+          default: 0
+        timeLocal:
+          type: string
+        updatedAt:
+          type: string
+        vendor:
+          $ref: '#/components/schemas/iGetRide_Rides_by_pk_Vendor'
+        vendorId:
+          type: string
+        consignee:
+          $ref: '#/components/schemas/iGetRide_Rides_by_pk_Consignee'
+        consigneeId:
+          type: string
+        createdAt:
+          type: string
+        deliveryId:
+          type: string
+        id:
+          type: string
+    iGetRide_Rides_by_pk_Consignee:
+      type: object
+      properties:
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        fullName:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetRide_Rides_by_pk_Products:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveredAmount:
+          type: integer
+          format: int32
+          nullable: true
+        expectedAmount:
+          type: integer
+          format: int32
+        id:
+          type: string
+        loadedAmount:
+          type: integer
+          format: int32
+          nullable: true
+        productType:
+          $ref: '#/components/schemas/iGetRide_Rides_by_pk_Products_ProductType'
+        productTypeId:
+          type: string
+        rideId:
+          type: string
+        updatedAt:
+          type: string
+    iGetRide_Rides_by_pk_Products_ProductType:
+      type: object
+      properties:
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+        client_id:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetRide_Rides_by_pk_Vendor:
+      type: object
+      properties:
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetRides_Rides:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/iGetRides_Rides_Products'
+        status:
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+          type: integer
+          format: int32
+          default: 0
+        timeLocal:
+          type: string
+        updatedAt:
+          type: string
+        vendor:
+          $ref: '#/components/schemas/iGetRides_Rides_Vendor'
+        vendorId:
+          type: string
+        consignee:
+          $ref: '#/components/schemas/iGetRides_Rides_Consignee'
+        consigneeId:
+          type: string
+        createdAt:
+          type: string
+        deliveryId:
+          type: string
+        id:
+          type: string
+    iGetRides_Rides_Consignee:
+      type: object
+      properties:
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        fullName:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetRides_Rides_Products:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveredAmount:
+          type: integer
+          format: int32
+          nullable: true
+        expectedAmount:
+          type: integer
+          format: int32
+        id:
+          type: string
+        loadedAmount:
+          type: integer
+          format: int32
+          nullable: true
+        productType:
+          $ref: '#/components/schemas/iGetRides_Rides_Products_ProductType'
+        productTypeId:
+          type: string
+        rideId:
+          type: string
+        updatedAt:
+          type: string
+    iGetRides_Rides_Products_ProductType:
+      type: object
+      properties:
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+        client_id:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetRides_Rides_Vendor:
+      type: object
+      properties:
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetTruck_Trucks_by_pk:
+      type: object
+      properties:
+        carrier:
+          $ref: '#/components/schemas/iGetTruck_Trucks_by_pk_Carrier'
+        carrierId:
+          type: string
+        coordinate:
+          type: string
+        driversName:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        trailerNumber:
+          type: string
+        truckLicense:
+          type: string
+        updatedAt:
+          type: string
+    iGetTruck_Trucks_by_pk_Carrier:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetTrucks_Trucks:
+      type: object
+      properties:
+        carrier:
+          $ref: '#/components/schemas/iGetTrucks_Trucks_Carrier'
+        carrierId:
+          type: string
+        coordinate:
+          type: string
+        driversName:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        trailerNumber:
+          type: string
+        truckLicense:
+          type: string
+        updatedAt:
+          type: string
+    iGetTrucks_Trucks_Carrier:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iGetVendors_Vendors:
+      type: object
+      properties:
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iInsertDelivery_Insert_deliveries_one:
+      type: object
+      properties:
+        rides:
+          type: array
+          items:
+            $ref: '#/components/schemas/iInsertDelivery_Insert_deliveries_one_Rides'
+        status:
+          enum:
+            - 0
+            - 1
+            - 2
+          type: integer
+          format: int32
+          default: 0
+        timeLocal:
+          type: string
+        truck:
+          $ref: '#/components/schemas/iInsertDelivery_Insert_deliveries_one_Truck'
+        truckId:
+          type: string
+        updatedAt:
+          type: string
+        clientId:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        progress:
+          enum:
+            - 0
+            - 1
+            - 2
+          type: integer
+          format: int32
+          default: 0
+    iInsertDelivery_Insert_deliveries_one_Rides:
+      type: object
+      properties:
+        consignee:
+          $ref: '#/components/schemas/iInsertDelivery_Insert_deliveries_one_Rides_Consignee'
+        consigneeId:
+          type: string
+        createdAt:
+          type: string
+        deliveryId:
+          type: string
+        id:
+          type: string
+        status:
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+          type: integer
+          format: int32
+          default: 0
+        timeLocal:
+          type: string
+        updatedAt:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/iInsertDelivery_Insert_deliveries_one_Rides_Products'
+        vendor:
+          $ref: '#/components/schemas/iInsertDelivery_Insert_deliveries_one_Rides_Vendor'
+        vendorId:
+          type: string
+    iInsertDelivery_Insert_deliveries_one_Rides_Consignee:
+      type: object
+      properties:
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        fullName:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iInsertDelivery_Insert_deliveries_one_Rides_Products:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveredAmount:
+          type: integer
+          format: int32
+          nullable: true
+        expectedAmount:
+          type: integer
+          format: int32
+        id:
+          type: string
+        loadedAmount:
+          type: integer
+          format: int32
+          nullable: true
+        productType:
+          $ref: '#/components/schemas/iInsertDelivery_Insert_deliveries_one_Rides_Products_ProductType'
+        productTypeId:
+          type: string
+        rideId:
+          type: string
+        updatedAt:
+          type: string
+    iInsertDelivery_Insert_deliveries_one_Rides_Products_ProductType:
+      type: object
+      properties:
+        client_id:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+    iInsertDelivery_Insert_deliveries_one_Rides_Vendor:
+      type: object
+      properties:
+        coordinate:
+          type: string
+        address:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iInsertDelivery_Insert_deliveries_one_Truck:
+      type: object
+      properties:
+        carrierId:
+          type: string
+        createdAt:
+          type: string
+        driversName:
+          type: string
+        carrier:
+          $ref: '#/components/schemas/iInsertDelivery_Insert_deliveries_one_Truck_Carrier'
+        externalId:
+          type: string
+        id:
+          type: string
+        trailerNumber:
+          type: string
+        truckLicense:
+          type: string
+        updatedAt:
+          type: string
+    iInsertDelivery_Insert_deliveries_one_Truck_Carrier:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iInsertGuestAccess_Insert_deliveryGuestAccesses_one:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveryId:
+          type: string
+        guestId:
+          type: string
+        id:
+          type: string
+        updatedAt:
+          type: string
+    iInsertProduct_Insert_products_one:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveredAmount:
+          type: integer
+          format: int32
+          nullable: true
+        expectedAmount:
+          type: integer
+          format: int32
+        id:
+          type: string
+        loadedAmount:
+          type: integer
+          format: int32
+          nullable: true
+        productTypeId:
+          type: string
+        rideId:
+          type: string
+        updatedAt:
+          type: string
+        productType:
+          $ref: '#/components/schemas/iInsertProduct_Insert_products_one_ProductType'
+    iInsertProduct_Insert_products_one_ProductType:
+      type: object
+      properties:
+        client_id:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+    iInsertRide_Insert_rides_one:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/iInsertRide_Insert_rides_one_Products'
+        status:
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+          type: integer
+          format: int32
+          default: 0
+        timeLocal:
+          type: string
+        updatedAt:
+          type: string
+        vendor:
+          $ref: '#/components/schemas/iInsertRide_Insert_rides_one_Vendor'
+        vendorId:
+          type: string
+        consignee:
+          $ref: '#/components/schemas/iInsertRide_Insert_rides_one_Consignee'
+        consigneeId:
+          type: string
+        createdAt:
+          type: string
+        deliveryId:
+          type: string
+        id:
+          type: string
+    iInsertRide_Insert_rides_one_Consignee:
+      type: object
+      properties:
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        fullName:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iInsertRide_Insert_rides_one_Products:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveredAmount:
+          type: integer
+          format: int32
+          nullable: true
+        expectedAmount:
+          type: integer
+          format: int32
+        id:
+          type: string
+        loadedAmount:
+          type: integer
+          format: int32
+          nullable: true
+        productType:
+          $ref: '#/components/schemas/iInsertRide_Insert_rides_one_Products_ProductType'
+        productTypeId:
+          type: string
+        rideId:
+          type: string
+        updatedAt:
+          type: string
+    iInsertRide_Insert_rides_one_Products_ProductType:
+      type: object
+      properties:
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+        client_id:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iInsertRide_Insert_rides_one_Vendor:
+      type: object
+      properties:
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iInsertTruck_Insert_trucks_one:
+      type: object
+      properties:
+        carrier:
+          $ref: '#/components/schemas/iInsertTruck_Insert_trucks_one_Carrier'
+        carrierId:
+          type: string
+        coordinate:
+          type: string
+        driversName:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        trailerNumber:
+          type: string
+        truckLicense:
+          type: string
+        updatedAt:
+          type: string
+    iInsertTruck_Insert_trucks_one_Carrier:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iReadOnlyList_iGetTrucks_Trucks:
+      type: array
+      items:
+        $ref: '#/components/schemas/iGetTrucks_Trucks'
+    iUpdateDelivery_Update_deliveries_by_pk:
+      type: object
+      properties:
+        rides:
+          type: array
+          items:
+            $ref: '#/components/schemas/iUpdateDelivery_Update_deliveries_by_pk_Rides'
+        status:
+          enum:
+            - 0
+            - 1
+            - 2
+          type: integer
+          format: int32
+          default: 0
+        timeLocal:
+          type: string
+        truck:
+          $ref: '#/components/schemas/iUpdateDelivery_Update_deliveries_by_pk_Truck'
+        truckId:
+          type: string
+        updatedAt:
+          type: string
+        clientId:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        progress:
+          enum:
+            - 0
+            - 1
+            - 2
+          type: integer
+          format: int32
+          default: 0
+    iUpdateDelivery_Update_deliveries_by_pk_Rides:
+      type: object
+      properties:
+        consignee:
+          $ref: '#/components/schemas/iUpdateDelivery_Update_deliveries_by_pk_Rides_Consignee'
+        consigneeId:
+          type: string
+        createdAt:
+          type: string
+        deliveryId:
+          type: string
+        id:
+          type: string
+        status:
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+          type: integer
+          format: int32
+          default: 0
+        timeLocal:
+          type: string
+        updatedAt:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/iUpdateDelivery_Update_deliveries_by_pk_Rides_Products'
+        vendor:
+          $ref: '#/components/schemas/iUpdateDelivery_Update_deliveries_by_pk_Rides_Vendor'
+        vendorId:
+          type: string
+    iUpdateDelivery_Update_deliveries_by_pk_Rides_Consignee:
+      type: object
+      properties:
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        fullName:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iUpdateDelivery_Update_deliveries_by_pk_Rides_Products:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveredAmount:
+          type: integer
+          format: int32
+          nullable: true
+        expectedAmount:
+          type: integer
+          format: int32
+        id:
+          type: string
+        loadedAmount:
+          type: integer
+          format: int32
+          nullable: true
+        productType:
+          $ref: '#/components/schemas/iUpdateDelivery_Update_deliveries_by_pk_Rides_Products_ProductType'
+        productTypeId:
+          type: string
+        rideId:
+          type: string
+        updatedAt:
+          type: string
+    iUpdateDelivery_Update_deliveries_by_pk_Rides_Products_ProductType:
+      type: object
+      properties:
+        client_id:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+    iUpdateDelivery_Update_deliveries_by_pk_Rides_Vendor:
+      type: object
+      properties:
+        coordinate:
+          type: string
+        address:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iUpdateDelivery_Update_deliveries_by_pk_Truck:
+      type: object
+      properties:
+        carrierId:
+          type: string
+        createdAt:
+          type: string
+        driversName:
+          type: string
+        carrier:
+          $ref: '#/components/schemas/iUpdateDelivery_Update_deliveries_by_pk_Truck_Carrier'
+        externalId:
+          type: string
+        id:
+          type: string
+        trailerNumber:
+          type: string
+        truckLicense:
+          type: string
+        updatedAt:
+          type: string
+    iUpdateDelivery_Update_deliveries_by_pk_Truck_Carrier:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iUpdateProduct_Update_products_by_pk:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveredAmount:
+          type: integer
+          format: int32
+          nullable: true
+        expectedAmount:
+          type: integer
+          format: int32
+        id:
+          type: string
+        loadedAmount:
+          type: integer
+          format: int32
+          nullable: true
+        productTypeId:
+          type: string
+        rideId:
+          type: string
+        updatedAt:
+          type: string
+        productType:
+          $ref: '#/components/schemas/iUpdateProduct_Update_products_by_pk_ProductType'
+    iUpdateProduct_Update_products_by_pk_ProductType:
+      type: object
+      properties:
+        client_id:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+    iUpdateRide_Update_rides_by_pk:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/iUpdateRide_Update_rides_by_pk_Products'
+        status:
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+          type: integer
+          format: int32
+          default: 0
+        timeLocal:
+          type: string
+        updatedAt:
+          type: string
+        vendor:
+          $ref: '#/components/schemas/iUpdateRide_Update_rides_by_pk_Vendor'
+        vendorId:
+          type: string
+        consignee:
+          $ref: '#/components/schemas/iUpdateRide_Update_rides_by_pk_Consignee'
+        consigneeId:
+          type: string
+        createdAt:
+          type: string
+        deliveryId:
+          type: string
+        id:
+          type: string
+    iUpdateRide_Update_rides_by_pk_Consignee:
+      type: object
+      properties:
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        fullName:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iUpdateRide_Update_rides_by_pk_Products:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        deliveredAmount:
+          type: integer
+          format: int32
+          nullable: true
+        expectedAmount:
+          type: integer
+          format: int32
+        id:
+          type: string
+        loadedAmount:
+          type: integer
+          format: int32
+          nullable: true
+        productType:
+          $ref: '#/components/schemas/iUpdateRide_Update_rides_by_pk_Products_ProductType'
+        productTypeId:
+          type: string
+        rideId:
+          type: string
+        updatedAt:
+          type: string
+    iUpdateRide_Update_rides_by_pk_Products_ProductType:
+      type: object
+      properties:
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+        client_id:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iUpdateRide_Update_rides_by_pk_Vendor:
+      type: object
+      properties:
+        additional:
+          $ref: '#/components/schemas/additionalValues'
+        address:
+          type: string
+        coordinate:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+    iUpdateTruck_Update_trucks_by_pk:
+      type: object
+      properties:
+        carrier:
+          $ref: '#/components/schemas/iUpdateTruck_Update_trucks_by_pk_Carrier'
+        carrierId:
+          type: string
+        coordinate:
+          type: string
+        driversName:
+          type: string
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        trailerNumber:
+          type: string
+        truckLicense:
+          type: string
+        updatedAt:
+          type: string
+    iUpdateTruck_Update_trucks_by_pk_Carrier:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        externalId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        updatedAt:
+          type: string
+  securitySchemes:
+    keycloak_auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://keycloak.dev.house/realms/traceway-development/protocol/openid-connect/auth
+          tokenUrl: https://keycloak.dev.house/realms/traceway-development/protocol/openid-connect/token
+          scopes:
+            openid: openid
